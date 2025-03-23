@@ -511,7 +511,7 @@ document.getElementById('transactionScreenshot').addEventListener('change', func
     }
 });
 function generateQRCode(amount) {
-    const upiId = "9494189399@ibl";
+    const upiId = ""; //upi_id
     const payeeName = "DonateEase_NGO";
     const qrLink = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
     document.getElementById("qrCodeImage").src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrLink)}&size=200x200`;
