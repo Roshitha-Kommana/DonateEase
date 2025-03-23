@@ -54,6 +54,7 @@ DonateEase/
 │── firebaseConfig.js    # Firebase Authentication & Firestore Configuration
 │── firebase.json        # Firebase Hosting Configuration
 │── README.md            # Project Documentation
+etc
 ```
 
 ---
