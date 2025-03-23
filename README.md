@@ -47,6 +47,7 @@ DonateEase/
 │── donate.html          # Donation Form Page
 │── ngo.html             # NGO List Page
 │── profile.html         # User Profile & History
+│── login.html           # Login and Registration Page
 │── login.css            # Styling for login page
 │── ngo.css              # Styling for NGO list
 │── donationmodule.js    # Handles form submissions & Cloudinary uploads
