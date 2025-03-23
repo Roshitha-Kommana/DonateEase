@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
+body {
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-image:url("assets/donate_page/background.jpeg");
+    background-size:cover;
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-repeat: no-repeat;
+    height:130vh;
+    width:100vw;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.input-error {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  rgba(8, 11, 45, 0.85);
+    padding: 10px 20px;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    height:37px;
+}
+
+.top-left-heading {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.hamburger {
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.hamburger div {
+    width: 30px;
+    height: 5px;
+    background-color: white;
+    border-radius: 3px;
+    padding:0.3px;
+}
+
+/* Navigation Styling */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px; /* Ensures equal spacing between items */
+    margin: 0;
+    padding: 0;
+    align-items: center; /* Vertically center the items */
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px; /* Consistent padding for all items */
+    transition: 0.3s;
+    line-height: 1.5; /* Consistent line height */
+    display: flex;
+    align-items: center; /* Vertically center the text */
+    height: 100%; /* Ensure full height */
+}
+
+nav ul li a i{
+    padding:6px;
+}
+
+nav ul.active {
+    display: block;
+}
+
+.desktop-menu {
+    display: none;
+}
+
+nav ul.mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 50px; /* Align menu items just below the header */
+    right: 10px; /* Align menu items close to the hamburger button */
+    background: rgba(0, 0, 0, 0.9);
+    width: 200px; /* Adjust width to fit the content */
+    padding:auto; /* Add some padding around the items */
+    border-radius: 8px; /* Add rounded corners for a better look */
+    z-index: 999;
+}
+
+nav ul.mobile-menu li {
+    text-align: left; /* Align text for better readability */
+    margin: -15px 0; /* Reduce space between items */
+    padding: -50px -50px; /* Add padding to each menu item for better click area */
+    position: sticky;
+    top:50px;
+}
+
+nav ul.mobile-menu li a{
+    text-align:left;
+    padding:20px;
+}
+
+
+/* Show the desktop menu and hide the hamburger on larger screens */
+@media (min-width: 769px) {
+    .hamburger {
+        display: none; /* Hide hamburger menu on larger screens */
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: flex-start; /* Align the items to the left */
+    }
+
+    nav ul.mobile-menu {
+        display: none !important; /* Ensure mobile menu is hidden on larger screens */
+
+    }
+
+    .desktop-menu {
+        display: flex; /* Show the desktop menu */
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+        margin-left: auto;
+    }
+
+    header {
+        height: 35px;
+    }
+
+    nav ul.mobile-menu.active {
+        display: flex;
+    }
+    
+}
+/* Container */
+.container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease-in-out;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.container:hover {
+    box-shadow: 0 12px 36px rgb(35, 28, 28);
+}
+
+/* Section Headings */
+h1, h2 {
+    text-align: center;
+    color: black;
+    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: black;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    color: black;
+}
+
+/* Form Styling */
+.form-group,
+.dynamic-form {
+    margin-bottom: 20px;
+}
+
+input,
+select,
+textarea,
+button {
+    width: 100%;
+    padding: 16px;
+    margin-top: 8px;
+    border: 1px solid black;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    color: rgb(11, 10, 10);
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #24466b;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+/* Buttons */
+button {
+    background: rgba(10, 85, 164, 0.765);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    margin-top: 20px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button:hover {
+    background: rgba(8, 31, 57, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.95rem;
+    color: black;
+}
+
+/* Type of Donation Section */
+#donationType {
+    margin-top: 20px;
+}
+
+.dynamic-form.hidden {
+    display: none;
+}
+
+#dynamicForms {
+    margin-top: 20px;
+}
+
+/* QR Section */
+.qr-section img {
+    display: block;
+    margin: 20px auto;
+    width: 160px;
+    height: 160px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.qr-section img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Payment Method */
+.payment-method {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: black;
+}
+
+/* Transaction Section */
+#transaction-section {
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Placeholder Styling */
+input::placeholder,
+textarea::placeholder {
+    color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 70%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        font-size: 0.95rem;
+    }
+
+    button {
+        padding: 10px;
+    }
+
+    .qr-section img {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 8px 12px;
+    }
+
+    .qr-section img {
+        width: 100px;
+        height: 100px;
+    }
+}

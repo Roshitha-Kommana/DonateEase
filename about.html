@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <style>
+        /* Global Reset */
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: white;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 80px 20px 20px; /* Added top padding */
+        }
+
+
+        header {
+            background:  rgba(8, 11, 45, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height:60px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-left-heading {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px; /* Ensures equal spacing between items */
+            margin: 0;
+            padding: 0;
+            align-items: center; /* Vertically center the items */
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 17px; /* Consistent padding for all items */
+            transition: 0.3s;
+            line-height: 1.5; /* Consistent line height */
+            display: flex;
+            align-items: center; /* Vertically center the text */
+            height: 100%; /* Ensure full height */
+        }
+        nav ul li a i{
+            padding:6px;
+        }
+        
+
+
+        nav ul.active {
+            display: block;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 5px;
+            background-color: #fff;
+            border-radius: 3px;
+        }
+
+        nav ul.mobile-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 45px; /* Align menu items just below the header */
+            right: 10px; /* Align menu items close to the hamburger button */
+            background: rgba(0, 0, 0, 0.9);
+            width: 210px; /* Adjust width to fit the content */
+            padding: 13px; /* Add some padding around the items */
+            border-radius: 8px; /* Add rounded corners for a better look */
+            z-index: 999;
+        }
+
+        nav ul.mobile-menu li {
+            text-align: left; /* Align text for better readability */
+            margin: -8px 0; /* Reduce space between items */
+            padding: -50px -50px; /* Add padding to each menu item for better click area */
+            position: sticky;
+        }
+
+        @media (min-width: 769px) {
+            .hamburger {
+                display: none;
+            }
+
+            nav ul {
+                display: flex;
+            }
+
+            nav ul.mobile-menu {
+                display: none !important;
+            }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                margin-left: auto;
+            }
+
+            header {
+                height: 53px;
+            }
+
+            nav ul.mobile-menu.active {
+                display: flex;
+            }
+        }
+
+        /* ✅ About Section */
+        .about-container {
+            display: flex;
+            flex-direction: row-reverse;
+            max-width: 1200px;
+            margin: 70px auto;
+            padding: 40px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 10px 30px rgba(10, 23, 51, 0.726);
+        }
+
+        /* ✅ Content Styling */
+        .about-content {
+            flex: 1;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .about-content h1 {
+            font-size: 40px;
+            color: #1b274e;
+            margin-bottom: 15px;
+        }
+
+        .about-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .about-content h2 {
+            font-size: 24px;
+            color: #1b274e;
+            margin-top: 20px;
+        }
+
+        /* ✅ List Styling */
+        .about-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .about-content ul li {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .about-content ul li i {
+            color:  #1b274e;
+            font-size: 22px;
+        }
+
+        /* ✅ Donate Button */
+        .donate-button {
+            display: inline-block;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #1717464b,  #1b274e);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s ease-in-out;
+            text-decoration: none;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(135deg, #3e474f, #222a46);
+            transform: scale(1.05);
+        }
+
+        /* ✅ Image Styling */
+        .about-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ✅ Footer */
+        footer {
+            width: 100%;
+            background: #1b274e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* ✅ Responsive Design */
+        @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+
+            .about-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .about-content ul li {
+                justify-content: center;
+            }
+
+            .about-image img {
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-left-heading">DonateEase</div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="navDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="navLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="navLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+
+            </ul>
+            <ul class="mobile-menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="mobileNavDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="mobileNavLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="mobileNavLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="about-container">
+        <div class="about-content">
+            <h1>About DonateEase</h1>
+            <p>Welcome to <b>DonateEase</b> – a platform built to bridge the gap between donors and those in need. 
+            We believe in the power of generosity and its ability to transform lives. Our goal is to make donations <b>seamless, transparent, and impactful</b>.</p>
+
+            <h2>Our Mission</h2>
+            <p>To create a trusted and efficient platform where individuals can contribute <b>money, books, clothes, and essentials</b> to NGOs that need them the most.</p>
+
+            <h2>Why Choose Us?</h2>
+            <ul>
+                <li><i class='bx bx-check-circle'></i>Seamless Donation Process- A user-friendly interface for quick donations.</li>
+                <li><i class='bx bx-shield-quarter'></i>Secure Transactions - Ensuring safe payments and data privacy.</li>
+                <li><i class='bx bx-map'></i> Connect with Verified NGO - Supporting trustworthy organizations.</li>
+                <li><i class='bx bx-history'></i> Track Your Donations - View your past contributions anytime.</li>
+            </ul>
+        </div>
+
+        <div class="about-image">
+            <img src="assets/homepage/poster_1.png" alt="About DonateEase">
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            menu.classList.toggle('active');
+        }
+    </script>
+    <script type="module">
+        import { auth } from "./firebaseConfig.js"; // ✅ Import auth from firebaseConfig.js
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            const navDonate = document.getElementById("navDonate");
+            const mobileNavDonate = document.getElementById("mobileNavDonate");
+    
+            function handleDonateClick(event) {
+                event.preventDefault();
+                const user = auth.currentUser;
+    
+                if (user) {
+                    window.location.href = "donationmain.html"; // ✅ If logged in, go to donation page
+                } else {
+                    sessionStorage.setItem("redirectAfterLogin", "donationmain.html"); // ✅ Store redirect for login
+                    window.location.href = "login.html";
+                }
+            }
+    
+            // ✅ Ensure event listeners are attached only if elements exist
+            if (navDonate) {
+                console.log("✅ Attaching event listener to navDonate");
+                navDonate.addEventListener("click", handleDonateClick);
+            } else {
+                console.error("❌ navDonate element not found in the DOM");
+            }
+    
+            if (mobileNavDonate) {
+                console.log("✅ Attaching event listener to mobileNavDonate");
+                mobileNavDonate.addEventListener("click", handleDonateClick);
+            } else {
+                console.error("❌ mobileNavDonate element not found in the DOM");
+            }
+        });
+    </script>
+    <script type="module" src="auth.js"></script>
+
+</body>
+</html>

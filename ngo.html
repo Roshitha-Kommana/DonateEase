@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO's List</title>
+    <link rel="stylesheet" href="ngo.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="top-left-heading">DonateEase</div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="navDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="navLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="navLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+
+            </ul>
+            <ul class="mobile-menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="mobileNavDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="mobileNavLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="mobileNavLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="title">NGO's List</h1>
+        <div class="ngo-cards">
+            <!-- NGO 1: Goonj -->
+            <div class="ngo-card">
+                <div class="ngo-image">
+                    <img src="assets/ngo_logos/Goonj.jpeg"  alt="Goonj Logo">
+                </div>
+                <div class="ngo-info">
+                    <h2>Goonj</h2>
+                    <p>
+                        Goonj is an NGO based in India that addresses issues like poverty, social inequality, and urban-rural divides 
+                        through sustainable initiatives. Founded in 1999 by Anshu Gupta, Goonj repurposes urban surplus materials, 
+                        particularly clothing, to meet the basic needs of marginalized communities.Its key programs include the 
+                        "Cloth for Work" initiative, where villagers exchange their labor for essential goods, and rural development
+                        projects like building roads, sanitation systems, and improving infrastructure. Goonj also provides
+                        disaster relief, educational campaigns, and raises awareness about resource management. Users of a donation 
+                        platform can contribute financially, donate old clothes and goods, volunteer, or participate in fundraising 
+                        events..</p>
+                    <p><strong>Donation Type:</strong> Clothes, Electronics, Others</p>
+                </div>
+            </div>
+
+            <!-- NGO 2: HelpAge India -->
+            <div class="ngo-card">
+                <div class="ngo-image">
+                    <img src="assets/ngo_logos/help_age.png" alt="HelpAge India Logo">
+                </div>
+                <div class="ngo-info">
+                    <h2>HelpAge India</h2>
+                    <p>HelpAge India is a nonprofit organization focused on supporting the elderly in India,
+                    addressing issues such as poverty, health challenges, and social isolation. 
+                    Founded in 1978, it provides healthcare services, financial assistance, and advocacy 
+                    for the rights of senior citizens. Key programs include mobile healthcare units, old-age pensions, 
+                    and caregiver support. HelpAge India often accepts clothing donations for senior citizens, providing 
+                    them with essential items. The organization also works on legal advocacy to protect the rights 
+                    of older adults.HelpAge India also focuses on empowering communities to better care for 
+                    their elderly members. It conducts workshops and training for caregivers to improve the 
+                    quality of elderly care at home, ensuring that seniors receive proper attention and support. 
+                    In the event of natural disasters, the organization provides emergency relief, 
+                    ensuring that senior citizens are not left behind in disaster response efforts.</p>
+                    <p><strong>Donation Type:</strong> Clothes</p>
+                </div>
+            </div>
+
+            <!-- NGO 3: Smile Foundation -->
+            <div class="ngo-card">
+                <div class="ngo-image">
+                    <img src="assets/ngo_logos/smile.jpg" alt="Smile Foundation Logo">
+                </div>
+                <div class="ngo-info">
+                    <h2>Smile Foundation</h2>
+                    <p>Smile Foundation is an NGO in India focused on empowering underprivileged children, 
+                        youth, and women through education, healthcare, and livelihood programs. 
+                        Founded in 2002, it aims to address critical issues like poverty, education, and health, 
+                        particularly for marginalized communities. The foundation runs several initiatives, 
+                        including Mission Education for providing quality education, Smile on Wheels for mobile
+                        healthcare, and Smile Twin e-Learning Program for digital education. It also promotes 
+                        women empowerment through skill development and health awareness programs. Users can 
+                        contribute to Smile Foundation by making financial donations, donating materials like 
+                        clothing and books, volunteering, or participating in fundraising campaigns. Information on how to 
+                        donate is available on their website and social media platforms, where the foundation shares updates 
+                        on its work and impact. Supporting Smile Foundation helps provide essential resources to those in need, 
+                        especially in education and healthcare.</p>
+                    <p><strong>Donation Type:</strong> Clothes, Money, Books</p>
+                </div>
+            </div>
+
+            <!-- NGO 4: Teach for India -->
+            <div class="ngo-card">
+                <div class="ngo-image">
+                    <img src="assets/ngo_logos/techforindia.png" alt="Teach for India Logo">
+                </div>
+                <div class="ngo-info">
+                    <h2>Teach for India</h2>
+                    <p>Teach for India is a nonprofit organization that aims to eliminate educational inequity 
+                    in India by recruiting and training young professionals to teach in underprivileged schools. 
+                    Founded in 2009, it is part of the global Teach for All network. The organization focuses on 
+                    providing quality education to children from low-income communities, empowering them to reach 
+                    their full potential. Teach for India fellows, who are typically graduates or young professionals, 
+                    work in schools across various cities for two years, serving as teachers and leaders in the classroom. 
+                    They also engage with the community to foster long-term change in education. The initiative addresses the 
+                    systemic gaps in the Indian education system by combining classroom teaching with leadership development, 
+                    advocating for the importance of education in social change. Teach for India also encourages corporate and 
+                    individual donations, volunteer opportunities, and partnerships to support its mission and extend its impact..</p>
+                    <p><strong>Donation Type:</strong> Money, Books</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            menu.classList.toggle('active');
+        }
+    </script>
+    <script type="module">
+        import { auth } from "./firebaseConfig.js"; // ✅ Import auth from firebaseConfig.js
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            const navDonate = document.getElementById("navDonate");
+            const mobileNavDonate = document.getElementById("mobileNavDonate");
+    
+            function handleDonateClick(event) {
+                event.preventDefault();
+                const user = auth.currentUser;
+    
+                if (user) {
+                    window.location.href = "donationmain.html"; // ✅ If logged in, go to donation page
+                } else {
+                    sessionStorage.setItem("redirectAfterLogin", "donationmain.html"); // ✅ Store redirect for login
+                    window.location.href = "login.html";
+                }
+            }
+    
+            // ✅ Ensure event listeners are attached only if elements exist
+            if (navDonate) {
+                console.log("✅ Attaching event listener to navDonate");
+                navDonate.addEventListener("click", handleDonateClick);
+            } else {
+                console.error("❌ navDonate element not found in the DOM");
+            }
+    
+            if (mobileNavDonate) {
+                console.log("✅ Attaching event listener to mobileNavDonate");
+                mobileNavDonate.addEventListener("click", handleDonateClick);
+            } else {
+                console.error("❌ mobileNavDonate element not found in the DOM");
+            }
+        });
+
+    </script>   
+    <script type="module" src="auth.js"></script>
+</body>
+</html>

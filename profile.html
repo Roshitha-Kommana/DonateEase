@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: white;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 80px 20px 20px; /* Added top padding */
+        }
+
+        header {
+            background:  rgba(8, 11, 45, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height:60px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-left-heading {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px; /* Ensures equal spacing between items */
+            margin: 0;
+            padding: 0;
+            align-items: center; /* Vertically center the items */
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 17px; /* Consistent padding for all items */
+            transition: 0.3s;
+            line-height: 1.5; /* Consistent line height */
+            display: flex;
+            align-items: center; /* Vertically center the text */
+            height: 100%; /* Ensure full height */
+        }
+        nav ul li a i{
+            padding:6px;
+        }
+
+        nav ul.active {
+            display: block;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 5px;
+            background-color: #fff;
+            border-radius: 3px;
+        }
+
+        nav ul.mobile-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 45px; /* Align menu items just below the header */
+            right: 10px; /* Align menu items close to the hamburger button */
+            background: rgba(0, 0, 0, 0.9);
+            width: 210px; /* Adjust width to fit the content */
+            padding: 13px; /* Add some padding around the items */
+            border-radius: 8px; /* Add rounded corners for a better look */
+            z-index: 999;
+        }
+        nav ul.mobile-menu li {
+            text-align: left; /* Align text for better readability */
+            margin: -8px 0; /* Reduce space between items */
+            padding: -50px -50px; /* Add padding to each menu item for better click area */
+            position: sticky;
+        }
+
+        @media (min-width: 769px) {
+            .hamburger {
+                display: none;
+            }
+
+            nav ul {
+                display: flex;
+            }
+
+            nav ul.mobile-menu {
+                display: none !important;
+            }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                margin-left: auto;
+            }
+
+            header {
+                height: 53px;
+            }
+
+            nav ul.mobile-menu.active {
+                display: flex;
+            }
+
+        }
+
+
+        .profile-container {
+            width: 450px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.374);
+            text-align: center;
+        }
+
+        .profile-icon {
+            font-size: 80px;
+            color: #1b274e;
+            margin-bottom: 10px;
+        }
+
+        .profile-info {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .profile-info div {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            margin: 10px 0;
+            color: #444;
+        }
+
+        .profile-info i {
+            font-size: 22px;
+            margin-right: 10px;
+            color: #1b274e;
+        }
+
+        .auth-button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #1b274e;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .auth-button:hover {
+            background: #142044;
+        }
+        /* Donation History Table */
+        .history-heading {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 30px;
+            color: #1b274e;
+            text-align: center;
+        }
+
+        .history-table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.559);
+        }
+
+        .history-table th, .history-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .history-table th {
+            background-color: #1b274e;
+            color: white;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .history-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .history-table tr:hover {
+            background-color: #e0e0e0;
+            transition: 0.3s;
+        }
+
+        .history-table td {
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Responsive Table */
+        @media (max-width: 768px) {
+            .history-table {
+                width: 100%;
+                font-size: 14px;
+                overflow-x: auto;
+                display: block;
+            }
+
+            .history-table th, .history-table td {
+                padding: 10px;
+                white-space: nowrap;
+                width:60%;
+            }
+            .modal-content {
+                width: 1000%;
+                max-width: 1000px;
+                padding: 10px;
+                text-align: center;
+                top:5%;
+            }
+
+            .close-btn {
+                font-size: 26px;
+                top: 5px;
+                right: 10px;
+                color:red;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 500;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 200%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            margin:8% auto;
+            padding: 8px;
+            width: 10%;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            position: relative;
+            max-height: 100vh; /* Prevents the modal from being too tall */
+            overflow: hidden; 
+            
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius:8px;
+            max-height: 10%;
+            max-height: 300px; /* Limits the height */
+            object-fit: contain; /* Prevents cropping, maintains aspect ratio */
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 0px;
+            right: 9px;
+            font-size: 35px;
+            cursor: pointer;
+            color:rgb(229, 16, 16);
+        }
+
+        .view-image-btn {
+            background: none;
+            border: none;
+            color: #000000;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .view-image-btn i {
+            font-size: 22px;
+            vertical-align: middle;
+        }
+
+        .view-image-btn:hover {
+            color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="top-left-heading">DonateEase</div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="navDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="navLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="navLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+
+            </ul>
+            <ul class="mobile-menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="mobileNavDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="mobileNavLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="mobileNavLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <div class="profile-container">
+        <i class='bx bxs-user-circle profile-icon'></i>
+        <h1>Profile</h1>
+        <div id="profile-loading">Loading...</div>
+
+        <div class="profile-info">
+            <div><i class='bx bxs-user'></i> <span>Full Name: <span id="loggedUserFullName">-</span></span></div>
+            <div><i class='bx bxs-envelope'></i> <span>Email: <span id="loggedUserEmail">-</span></span></div>
+            <div><i class='bx bxs-calendar'></i> <span>Date of Birth: <span id="loggedUserDOB">-</span></span></div>
+        </div>
+        <button class="auth-button" id="logout" style="display: none;">Logout</button>
+        <button class="auth-button" id="login" style="display: none;">Login</button>
+    </div>
+        <h2 class="history-heading">Your History</h2>
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>S.No</th> 
+                    <th>NGO</th>
+                    <th>Donation Type</th>
+                    <th>Details</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="donationHistory">
+                <tr><td colspan="4" style="text-align:center;">No donations found.</td></tr>
+            </tbody>
+        </table>
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Payment Screenshot">
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        }
+
+        // Function to open the modal and display the image
+        function viewImage(imageUrl) {
+            document.getElementById("modalImage").src = imageUrl;
+            document.getElementById("imageModal").style.display = "block";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+    </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+    
+        // ✅ Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB0a60DnSr6D3_moyXs3JqdNCmm8qY5vuc",
+            authDomain: "donateease-2f624.firebaseapp.com",
+            projectId: "donateease-2f624",
+            storageBucket: "donateease-2f624.appspot.com",
+            messagingSenderId: "235621729202",
+            appId: "1:235621729202:web:17159bd939a42297cd9aab",
+        };
+    
+        // ✅ Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore();
+    
+        // ✅ Get UI Elements
+        const logoutButton = document.getElementById('logout');
+        const loginButton = document.getElementById('login');
+        const profileLoading = document.getElementById('profile-loading');
+        const loggedUserFullName = document.getElementById('loggedUserFullName');
+        const loggedUserEmail = document.getElementById('loggedUserEmail');
+        const loggedUserDOB = document.getElementById('loggedUserDOB');
+        const donationHistoryTable = document.getElementById('donationHistory');
+    
+        // ✅ Function to Fetch User Data from Firestore
+        async function fetchUserData(userId) {
+            try {
+                const userDoc = await getDoc(doc(db, "users", userId));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    sessionStorage.setItem("userData", JSON.stringify(userData));
+                    updateProfileUI(userData);
+                } else {
+                    console.error("❌ User data not found!");
+                    profileLoading.innerText = "User data not found.";
+                }
+            } catch (error) {
+                console.error("🔥 Error fetching user data:", error);
+                profileLoading.innerText = "Failed to load profile.";
+            }
+        }
+    
+        // ✅ Function to Update Profile UI
+        function updateProfileUI(userData) {
+            profileLoading.style.display = 'none'; // Hide loading text
+            loggedUserFullName.innerText = userData.name || "N/A";
+            loggedUserEmail.innerText = userData.email || "N/A";
+            loggedUserDOB.innerText = userData.dob || "N/A";
+        }
+    
+        
+        // ✅ Function to Fetch Donation History with Clean Formatting
+        async function fetchDonationHistory(userId) {
+            try {
+                const donationsRef = collection(db, "donations", userId, "userDonations");
+                const querySnapshot = await getDocs(donationsRef);
+                donationHistoryTable.innerHTML = ""; 
+
+                if (querySnapshot.empty) {
+                    donationHistoryTable.innerHTML = `<tr><td colspan="5" style="text-align:center;">No donations found.</td></tr>`;
+                    return;
+                }
+
+                let serialNumber = 1; // Initialize Serial Number
+
+                querySnapshot.forEach(doc => {
+                    const data = doc.data();
+                    
+                    // ✅ Convert timestamp to "Month Day, Year" format
+                    let formattedDate = "N/A";
+                    if (data.timestamp?.seconds) {
+                        const dateObj = new Date(data.timestamp.seconds * 1000);
+                        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        formattedDate = dateObj.toLocaleDateString('en-US', options);
+                    }
+
+                    // ✅ Format donation details based on type
+                    let formattedDetails = "N/A";
+                    if (data.donationDetails) {
+                        switch (data.donationType) {
+                            case "money":
+                                formattedDetails = `Amount: ₹${data.donationDetails.amount || "N/A"} `;
+                                if (data.donationDetails.screenshotUrl) {
+                                    formattedDetails += `
+                                        <button class="view-image-btn" onclick="viewImage('${data.donationDetails.screenshotUrl}')">
+                                             <i class='bx bx-show-alt'>
+                                        </button>`;
+                                }
+                                break;
+                            case "books":
+                                formattedDetails = `Book(s): ${data.donationDetails.numBooks || "N/A"}`;
+
+                                break;
+                            case "clothes":
+                                formattedDetails = `Cloth Type: ${data.donationDetails.clothType || "N/A"}`;
+                                break;
+                            case "others":
+                                formattedDetails = `Item: ${data.donationDetails.item || "N/A"}`;
+                                break;
+                            default:
+                                formattedDetails = "N/A";
+                        }
+                    }
+
+                    // ✅ Insert row into the table
+                    const row = `
+                        <tr>
+                            <td>${serialNumber++}</td> <!-- Serial Number -->
+                            <td>${data.ngo || "N/A"}</td>
+                            <td>${data.donationType || "N/A"}</td>
+                            <td>${formattedDetails}</td>
+                            <td>${formattedDate}</td>
+                        </tr>
+                    `;
+                    donationHistoryTable.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("🔥 Error fetching donation history:", error);
+            }
+        }
+
+        // ✅ Handle Authentication State Changes
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                logoutButton.style.display = 'block';
+                loginButton.style.display = 'none';
+                profileLoading.innerText = "Fetching profile...";
+                await fetchUserData(user.uid);  // ✅ Fetch user profile data
+                await fetchDonationHistory(user.uid); // ✅ Fetch donation history
+            } else {
+                // User is not logged in
+                logoutButton.style.display = 'none';
+                loginButton.style.display = 'block';
+    
+                // Show default values
+                profileLoading.innerText = "User not logged in";
+                loggedUserFullName.innerText = "-";
+                loggedUserEmail.innerText = "-";
+                loggedUserDOB.innerText = "-";
+            }
+        });
+    
+        // ✅ Logout Event
+        logoutButton.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                sessionStorage.clear();
+                window.location.href = 'index.html';
+            });
+        });
+    
+        // ✅ Login Event
+        loginButton.addEventListener('click', () => {
+            sessionStorage.setItem("redirectAfterLogin", "index.html");
+            window.location.href = 'login.html';
+        });
+
+
+        //nav link donate button
+        const navDonate = document.getElementById('navDonate');
+        const mobileNavDonate = document.getElementById('mobileNavDonate');
+
+        function handleDonateClick(event) {
+            event.preventDefault();
+            const user = auth.currentUser;
+
+            if (user) {
+                window.location.href = 'donationmain.html'; // ✅ If logged in, go to donation page
+            } else {
+                sessionStorage.setItem("redirectAfterLogin", "donationmain.html"); // ✅ Store redirect for login
+                window.location.href = 'login.html';
+            }
+        }
+
+        // ✅ Add event listeners for both desktop & mobile Donate links
+        navDonate.addEventListener('click', handleDonateClick);
+        mobileNavDonate.addEventListener('click', handleDonateClick);
+    </script>
+    <script type="module" src="auth.js"></script>
+</body>
+</html>

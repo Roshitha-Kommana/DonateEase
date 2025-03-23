@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Donation | DonateEase</title>
+    <link rel="stylesheet" href="donationmain.css">
+</head>
+
+<body>
+    <header>
+        <div class="top-left-heading">DonateEase</div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="navDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="navLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="navLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+
+            </ul>
+            <ul class="mobile-menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="mobileNavDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="mobileNavLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="mobileNavLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+            </ul>
+        </nav>
+        </nav>
+    </header>
+
+    <!-- Main Donation Container -->
+    <div class="container" id="donation-section">
+        <h1>Make a Donation</h1>
+
+        <!-- Donor Information Form -->
+        <form id="donorForm" >
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter your name"  required>
+                <div id="name-error" class="error-message"></div>
+
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="yourname@domain.com" required>
+                <div id="email-error" class="error-message"></div>
+
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="XXX-XXX-XXXX" pattern="\d{10}"   required>
+                <div id="phone-error" class="error-message"></div>
+
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" placeholder="Flat/House No, Street, City,"  required>
+                <div id="address-error" class="error-message"></div>
+
+            </div>
+            
+            <div class="form-group">
+                <label for="pincode">Pincode</label>
+                <input type="text" id="pincode" placeholder="e.g., 110001" pattern="\d{6}" required>
+                <div id="pincode-error" class="error-message"></div>
+
+            </div>
+            <!-- NGO Selection Dropdown -->
+            <div id="ngoContainer" style="display: none;">
+                <label for="ngoList">Select an NGO</label>
+                <select id="ngoList" name="ngoList" onchange="validateNGOSelection();updateDonationTypes(); enableDonationType();" disabled required>
+                    <option value="">-- Select an NGO --</option>
+                    <option value="goonj">Goonj (Donates:Clothes,Others)</option>
+                    <option value="helpage">HelpAge India (Donates:Clothes)</option>
+                    <option value="smile">Smile Foundation (Donates:Clothes,Money,Books)</option>
+                    <option value="teachforindia">Teach for India (Donates:Money,Books)</option>
+                </select>
+                <div id="ngo-error" class="error-message" style="color: red;"></div>
+            </div>
+
+            <!-- Type of Donation -->
+            <h2>Type of Donation</h2>
+            <select id="donationType" onchange="showDynamicForm()" disabled>
+                <option value="" selected disabled="">Select Donation Type</option>
+                <option value="money">Money</option>
+                <option value="books">Books</option>
+                <option value="clothes">Clothes</option>
+                <option value="others">Others</option>
+            </select>
+
+            <!-- Dynamic Forms -->
+            <div id="dynamicForms">
+                <!-- Money Donation Form -->
+                <div id="moneyForm" class="dynamic-form hidden">
+                    <label for="amount">Enter Amount</label>
+                    <input type="number" id="amount" placeholder="Enter Amount" min="1" required>
+                    <span id="amount-error" class="error-message"></span>
+
+                    <button id="proceedToPayment" class="btn" onclick="proceedToPayment()">Proceed to Payment</button>
+                </div>
+
+                <!-- Books Donation Form -->
+                <div id="booksForm" class="dynamic-form hidden">
+                    <label for="numBooks">Number of Books</label>
+                    <input type="number" id="numBooks" placeholder="Number of Books" min="1" required>
+                    <span id="numBooks-error" class="error-message"></span>
+
+                    <button type="button" onclick="addBookFields()">Add Book Details</button>
+                    <div id="bookDetails"></div>
+                    <button id="dontateBooksButton" type="button" class="btn donate-btn" >Donate</button>
+                </div>
+
+                <!-- Clothes Donation Form -->
+                <div id="clothesForm" class="dynamic-form hidden">
+                    <label for="clothType">Type of Cloth</label>
+                    <input type="text" id="clothType" placeholder="Cloth Type (e.g., Shirt, Pants)" required>
+                    <span id="clothType-error" class="error-message"></span>
+
+
+                    <label for="clothSize">Size</label>
+                    <input type="text" id="clothSize" placeholder="Cloth Size (e.g., S, M, L)" required>
+                    <span id="clothSize-error" class="error-message"></span>
+
+
+                    <label for="gender">Gender</label>
+                    <select id="gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="unisex">Unisex</option>
+                    </select>
+                    <span id="gender-error" class="error-message"></span>
+
+
+                    <label for="age">Age</label>
+                    <input type="number" id="age" placeholder="Age(e.g., 5,10)" required>
+                    <span id="age-error" class="error-message"></span>
+
+
+                    <button type="button"  id="donateClothesButton" class="btn donate-btn" >Donate</button>
+                </div>
+
+                <!-- Others Donation Form -->
+                <div id="othersForm" class="dynamic-form hidden">
+                    <label for="otherItem">Item</label>
+                    <input type="text" id="otherItem" placeholder="e.g., Toys, Electronics" required>
+                    <span id="otherItem-error" class="error-message"></span>
+
+                    <label for="otherDescription">Description</label>
+                    <textarea id="otherDescription" rows="4" placeholder="Provide a short description" required></textarea>
+                    <span id="otherDescription-error" class="error-message"></span>
+
+                    <button id="donateOthersButton" type="button" class="btn donate-btn" >Donate</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Section -->
+        <div class="container hidden" id="payment-section">
+            <h1>Complete Your Payment</h1>
+
+            <div class="amount-section">
+                <h2>Donation Amount: ₹<span id="donationAmount"></span></h2>
+            </div>
+
+            <div class="qr-section">
+                <h2>Scan QR Code</h2>
+                <p>Use any UPI app to scan and pay</p>
+                <img id="qrCodeImage" alt="QR Code" class="qr-code">
+            </div>
+
+            <div id="transaction-section">
+                <h2>Enter Transaction Details</h2>
+                <label for="transactionId">Transaction ID</label>
+                <input type="text" id="transactionId" placeholder="Transaction ID" required>
+                <span id="transactionError" class="error-message"></span>
+
+                <!-- File Upload for Transaction Screenshot -->
+                <label for="transactionScreenshot">Upload Transaction Screenshot </label>
+                <input type="file" id="transactionScreenshot" accept="image/*" required>
+                <span id="screenshotError" class="error-message"></span>
+
+                <button id="confirmPaymentButton" type="button" class="btn donate-btn">Done</button>
+            </div>
+        </form>
+    </div>  
+    <script type="module" src="auth.js"></script>
+    <script src="donationmain.js" defer></script>
+    <script type="module" src="donationmodule.js" defer></script>
+</body>
+
+</html>

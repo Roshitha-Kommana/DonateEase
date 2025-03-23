@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Confirmation</title>
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        body {
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .confirmation-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .text-container {
+            text-align: left;
+            flex: 1;
+        }
+
+        h1 {
+            color: #172b46d8;
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #172b46d8;
+            font-size: 22px;
+            margin: 15px 0;
+        }
+
+        p {
+            font-size: 19px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #147a4c;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: rgba(8, 11, 45);
+        }
+
+        .btn-history {
+            background: rgb(74, 124, 217);
+        }
+
+        .btn-history:hover {
+            background: #1d1345;
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <div class="content">
+            <div class="text-container">
+                <h1>Donation Successful!!</h1>
+                <h2 id="confirmationType"></h2>
+                <p id="confirmationMessage"></p>
+                <p>You can also view your donation history in your profile.</p>
+
+                <div class="button-container">
+                    <a href="profile.html" class="btn btn-history">View History</a>
+                    <a href="index.html" class="btn">Go to Home</a>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="assets/donate_page/confirm.png" alt="Donation Confirmation Image">
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const donationType = urlParams.get("type") || "Donation";
+            const donationDetails = JSON.parse(decodeURIComponent(urlParams.get("details"))) || {};
+    
+            let confirmationMessage = "Thank you for your donation! Your generosity is appreciated.";
+    
+            if (donationType === "clothes") {
+                confirmationMessage = `Thank you for donating ${donationDetails.clothType}. 
+
+                    Our delivery person will pick it up from your provided address.`;
+            } else if (donationType === "books") {
+                confirmationMessage =`Thank you for donating  ${donationDetails.numBooks} book(s)! Your generosity will help spread knowledge and bring joy to those in need.
+
+                     Our delivery person will pick it up from your provided address.`
+            } else if (donationType === "money") {
+                confirmationMessage = `Thank you for your generous donation of ₹${donationDetails.amount}.`;
+            } else if (donationType === "others") {
+                confirmationMessage = `Thank you for donating ${donationDetails.item}.We truly appreciate your support!
+                
+                    Our delivery person will pick it up from your provided address.`;
+            }
+    
+            // Display the confirmation message
+            document.getElementById("confirmationType").innerText = donationType;
+            document.getElementById("confirmationMessage").innerText = confirmationMessage;
+        });
+    </script>
+    
+</body>
+</html>

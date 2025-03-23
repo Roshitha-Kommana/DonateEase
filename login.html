@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup Form</title>
+    <link rel="stylesheet" href="login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+  <body>
+
+      <div class="container">
+          <div class="form-box login">
+              <form action="#" id="login-form">
+                  <h1>Login</h1>
+                  <div class="input-box">
+                      <input type="email" id="login-email" placeholder="Email" required>
+                      <i class='bx bxs-user'></i>
+                  </div>
+                  <div class="input-box">
+                      <input type="password" id="login-password" placeholder="Password" required>
+                      <i class='bx bxs-lock-alt' ></i>
+                  </div>
+                  <button type="submit" class="btn">Login</button>
+    
+              </form>
+          </div>
+
+          <div class="form-box register">
+            <form action="#" id="registration-form">
+                <h1>Registration</h1>
+            
+                <div class="input-box">
+                    <input type="text" id="register-name" placeholder="Full Name" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+            
+                <div class="input-box">
+                    <input type="email" id="register-email" placeholder="Email" required>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+            
+                <div class="input-box">
+                    <input type="date" id="register-dob" required>
+                    <i class='bx bxs-calendar'></i>
+                </div>
+            
+                <div class="input-box">
+                    <input type="password" id="register-password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+            
+                <div class="input-box">
+                    <input type="password" id="register-confirm-password" placeholder="Confirm Password" required>
+                    <i class='bx bxs-lock'></i>
+                </div>
+            
+                <button type="submit" class="btn">Register</button>
+            </form>
+            
+          </div>
+
+          <div class="toggle-box">
+              <div class="toggle-panel toggle-left">
+                  <h1>Hello, Welcome!</h1>
+                  <p>Don't have an account?</p>
+                  <button class="btn register-btn">Register</button>
+              </div>
+
+              <div class="toggle-panel toggle-right">
+                  <h1>Welcome Back!</h1>
+                  <p>Already have an account?</p>
+                  <button class="btn login-btn">Login</button>
+              </div>
+          </div>
+      </div>
+
+      <script>
+        const container = document.querySelector('.container');
+        const registerBtn = document.querySelector('.register-btn');
+        const loginBtn = document.querySelector('.login-btn');
+
+        registerBtn.addEventListener('click', () => {
+            container.classList.add('active');
+        })
+
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove('active');
+        })
+      </script>
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+    
+        // ✅ Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB0a60DnSr6D3_moyXs3JqdNCmm8qY5vuc",
+            authDomain: "donateease-2f624.firebaseapp.com",
+            projectId: "donateease-2f624",
+            storageBucket: "donateease-2f624.appspot.com",
+            messagingSenderId: "235621729202",
+            appId: "1:235621729202:web:17159bd939a42297cd9aab",
+        };
+    
+        // ✅ Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app); // ✅ Firestore instance
+
+    
+        // ✅ Function to Store User Data in Firestore
+        async function storeUserData(userId, name, email,dob) {
+            try {
+                await setDoc(doc(db, "users", userId), {
+                    name: name,
+                    email: email,
+                    dob: dob,
+                    registeredAt: new Date().toISOString() // Store registration timestamp
+                });
+    
+                console.log("✅ User data successfully stored in Firestore!");
+            } catch (error) {
+                console.error("❌ Error storing user data in Firestore: ", error);
+            }
+        }
+    
+        // ✅ Handle Login
+        document.getElementById('login-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+    
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log("✅ User Logged In: ", user.uid);
+    
+                    //alert('✅ Login successful!');
+                    const redirectURL = sessionStorage.getItem("redirectAfterLogin") || "index.html";
+                    sessionStorage.removeItem("redirectAfterLogin"); // ✅ Clear stored redirect after use
+                    window.location.href = redirectURL;
+
+                })
+                .catch((error) => {
+                    console.error("❌ Login Error: ", error);
+                    alert('❌ Error: ' + error.message);
+                });
+        });
+    
+        // ✅ Handle Registration
+        document.getElementById('registration-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const dob = document.getElementById('register-dob').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+    
+            if (password !== confirmPassword) {
+                alert('❌ Passwords do not match!');
+                return;
+            }
+    
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(async (userCredential) => {
+                    const user = userCredential.user;
+                    console.log("✅ User Registered: ", user.uid);
+    
+                    // ✅ Store user data in Firestore
+                    await storeUserData(user.uid, name, email, dob,);
+    
+                    window.location.href = 'login.html';
+                })
+                .catch((error) => {
+                    console.error("❌ Registration Error: ", error);
+                    alert('❌ Error: ' + error.message);
+                });
+        });
+      </script>
+  </body>
+</html>

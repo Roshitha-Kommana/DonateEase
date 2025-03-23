@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DonateEase</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #ffffff;
+        }
+
+        header {
+            background: rgba(8, 11, 45, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(34, 46, 95, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 60px;
+        }
+
+        #navLogin, #navLogout, #mobileNavLogin, #mobileNavLogout {
+            display: none; /* Hide both buttons initially */
+        }
+
+        .site-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .top-left-heading {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            position:relative;
+            gap:1px;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            display: inline-block;
+            padding: 8px 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+        nav ul li a i{
+            padding:6px;
+        }
+        
+        #navLogout {
+            margin-right: auto; /* Moves Logout to the left */
+        }
+
+
+        nav ul li.hidden {
+            display: none !important; /* Hide if necessary */
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            border-radius: 3px;
+        }
+
+        nav ul.mobile-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 50px; /* Aligns below header */
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            width: 200px;
+            padding: 12px;
+            border-radius: 8px;
+            z-index: 999;
+        }
+
+        /* Show menu when active */
+        nav ul.mobile-menu.active {
+            display: flex;
+        }
+
+        nav ul.mobile-menu li {
+            text-align: center;
+            margin: 2px 12px;
+            padding: 6px px;
+            position: sticky;
+        }
+    
+        @media (max-width: 768px) {
+            nav ul {
+                display: none; /* Hide normal menu */
+            }
+
+            .hamburger {
+                display: flex; /* Show hamburger icon */
+            }
+
+            nav ul.mobile-menu.active {
+                display: flex; /* Show mobile menu when active */
+                text-align:left ;
+            }
+        }
+        @media (min-width: 769px) {
+            .hamburger {
+                display: none;
+            }
+
+            nav ul {
+                display: flex;
+            }
+
+            nav ul.mobile-menu {
+                display: none !important;
+            }
+        }
+        /* Content Section */
+        .content-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap; /* Wrap items on smaller screens */
+            padding: 60px 10%;
+            background-color: rgb(255, 255, 255);
+            height: auto;
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 100vh; /* Full viewport height */
+        }
+
+        /* Left Side Content */
+        .content-text {
+            flex: 1;
+            max-width: 90%;
+            text-align: left;
+        }
+
+        /* Welcome Message */
+        #welcomeMessage {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Paragraph Styling */
+        .content-text p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 500px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Donate Button */
+        .donate-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #17265c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .donate-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Right Side Hero Image */
+        .hero-image {
+            flex: 1;
+            text-align: right;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        /* Typing Animation */
+        .text {
+            display: inline-block;
+            overflow: hidden;
+            font-size: 3.6rem;
+            font-weight: 700;
+            border-right: 2px solid rgb(222, 47, 158);
+            white-space: nowrap;
+            animation: typing 4s steps(50, end) infinite;
+            max-width: 21ch;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .content-section {
+                flex-direction: column; /* Stack elements */
+                text-align: center;
+                padding: 40px 5%;
+            }
+
+            .content-text {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            #welcomeMessage {
+                font-size: 2rem;
+            }
+
+            .content-text p {
+                font-size: 1rem;
+                max-width: 100%;
+            }
+
+            .donate-button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+
+            .hero-image {
+                margin-top: 20px;
+                text-align: center;
+            }
+
+            .hero-image img {
+                max-width: 90%;
+            }
+
+            .text {
+                font-size: 2.5rem; /* Smaller text on smaller screens */
+            }
+        }
+
+        @media (max-width: 600px) {
+            #welcomeMessage {
+                font-size: 1.8rem;
+            }
+
+            .content-text p {
+                font-size: 0.95rem;
+            }
+
+            .donate-button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            .text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="top-left-heading">DonateEase</h1>
+        <button class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="navDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="navLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="navLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+
+            </ul>
+            <ul class="mobile-menu">
+                <li><a href="index.html"><i class='bx bx-home'></i> Home</a></li>
+                <li><a href="#" id="mobileNavDonate"><i class='bx bx-donate-heart'></i> Donate</a></li>                
+                <li><a href="ngo.html"><i class='bx bx-list-ul'></i> NGOs List</a></li>
+                <li><a href="profile.html"><i class='bx bx-user-circle'></i> Profile</a></li>
+                <li><a href="about.html"><i class='bx bx-info-circle'></i> About</a></li>
+                <li><a href="login.html" id="mobileNavLogin"><i class='bx bx-log-in'></i> Login</a></li>
+                <li><a href="#" id="mobileNavLogout" style="display: none;" onclick="logoutUser()"><i class='bx bx-log-out'></i> Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="content-section">
+        <!-- Left Side: Text Content -->
+        <div class="content-text">
+            <h1 class="text" id="welcomeMessage">Welcome to DonateEase</h1>
+            <p>
+                Explore NGOs and make a difference by connecting with those in need. 
+                Your donations matter! Every contribution, big or small, brings hope and 
+                transforms lives. Join us in building a better world through kindness 
+                and generosity.
+            </p>
+            <a href="#" class="donate-button" id="donateButton">Donate</a>
+        </div>
+    
+        <!-- Right Side: Image -->
+        <div class="hero-image">
+            <img src="assets/homepage/collab.png" alt="Donate Illustration">
+        </div>
+    </section>
+    
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector("nav ul.mobile-menu");
+            mobileMenu.classList.toggle("active");
+        }
+
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+        
+        // ✅ Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB0a60DnSr6D3_moyXs3JqdNCmm8qY5vuc",
+            authDomain: "donateease-2f624.firebaseapp.com",
+            projectId: "donateease-2f624",
+        };
+
+        // ✅ Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore();
+
+        // ✅ Get Elements
+        const welcomeMessage = document.getElementById("welcomeMessage");
+        const loginLink = document.getElementById("navLogin");
+        const logoutLink = document.getElementById("navLogout");
+        const mobileLoginLink = document.getElementById("mobileNavLogin");
+        const mobileLogoutLink = document.getElementById("mobileNavLogout");
+
+        // ✅ Function to Fetch User Name from Firestore
+        async function fetchUserName(userId) {
+            try {
+                const userRef = doc(db, "users", userId);
+                const userSnap = await getDoc(userRef);
+
+                if (userSnap.exists()) {
+                    const userData = userSnap.data();
+                    const userName = userData.name || "User"; // Make sure Firestore field is "fullname"
+                    welcomeMessage.innerText = `Welcome Back, ${userName}!`;
+                } else {
+                    welcomeMessage.innerText = "Welcome to DonateEase";
+                }
+            } catch (error) {
+                console.error("🔥 Error fetching user data:", error);
+                welcomeMessage.innerText = "Welcome to DonateEase";
+            }
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const auth = getAuth();
+
+            // Get login/logout elements
+            const loginNavItem = document.getElementById("navLogin");
+            const logoutNavItem = document.getElementById("navLogout");
+            const mobileLoginNavItem = document.getElementById("mobileNavLogin");
+            const mobileLogoutNavItem = document.getElementById("mobileNavLogout");
+
+            // 🔹 Check if user is already logged in from sessionStorage (instant UI update)
+            if (sessionStorage.getItem("userLoggedIn") === "true") {
+                loginNavItem.style.display = "none";
+                logoutNavItem.style.display = "inline-block";
+                mobileLoginNavItem.style.display = "none";
+                mobileLogoutNavItem.style.display = "inline-block";
+            } else {
+                loginNavItem.style.display = "inline-block";
+                logoutNavItem.style.display = "none";
+                mobileLoginNavItem.style.display = "inline-block";
+                mobileLogoutNavItem.style.display = "none";
+            }
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    console.log("✅ User Logged In:", user.email);
+
+                    // Save login state instantly
+                    sessionStorage.setItem("userLoggedIn", "true");
+
+                    // Update UI
+                    loginLink.style.display = "none";
+                    logoutLink.style.display = "inline-block";
+                    mobileLoginLink.style.display = "none";
+                    mobileLogoutLink.style.display = "inline-block";
+
+                    // ✅ Fetch & Display User's Name
+                    await fetchUserName(user.uid);  // << CALL FUNCTION HERE
+                } else {
+                    console.log("🚫 No User Logged In");
+
+                    // Remove stored login state
+                    sessionStorage.removeItem("userLoggedIn");
+
+                    // Update UI
+                    loginLink.style.display = "inline-block";
+                    logoutLink.style.display = "none";
+                    mobileLoginLink.style.display = "inline-block";
+                    mobileLogoutLink.style.display = "none";
+
+                    // Default Welcome Message
+                    welcomeMessage.innerText = "Welcome to DonateEase";
+                }
+            });
+        });
+
+        window.logoutUser = () => {
+            auth.signOut()
+                .then(() => {
+                    sessionStorage.removeItem("userLoggedIn"); // Clear session
+                    updateUI(false); // Instantly update UI
+                    window.location.href = "index.html"; // Redirect
+                })
+                .catch((error) => {
+                    console.error("Logout error:", error);
+                });
+        };
+
+        // ✅ Handle Donate Button Click (Check Login)
+        donateButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const user = auth.currentUser;
+
+            if (user) {
+                window.location.href = 'donationmain.html'; // ✅ If logged in, go to donation page
+            } else {
+                sessionStorage.setItem("redirectAfterLogin", "donationmain.html"); // ✅ Save redirect for login
+                window.location.href = 'login.html';
+            }
+        });
+
+        const navDonate = document.getElementById('navDonate');
+        const mobileNavDonate = document.getElementById('mobileNavDonate');
+
+        function handleDonateClick(event) {
+            event.preventDefault();
+            const user = auth.currentUser;
+
+            if (user) {
+                window.location.href = 'donationmain.html'; // ✅ If logged in, go to donation page
+            } else {
+                sessionStorage.setItem("redirectAfterLogin", "donationmain.html"); // ✅ Store redirect for login
+                window.location.href = 'login.html';
+            }
+        }
+
+        // ✅ Add event listeners for both desktop & mobile Donate links
+        navDonate.addEventListener('click', handleDonateClick);
+        mobileNavDonate.addEventListener('click', handleDonateClick);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Body Styling */
+body {
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background: white;
+
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  rgba(8, 11, 45, 0.85);    
+    padding: 10px 20px;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    height: 60px;
+}
+
+.top-left-heading {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.hamburger {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 1.4px;
+}
+
+.hamburger div {
+    width: 30px;
+    height: 4px;
+    background-color: white;
+    border-radius: 5px;
+    padding:2.5px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 10px; /* Ensures equal spacing between items */
+    margin: 0;
+    padding: 0;
+    align-items: center; /* Vertically center the items */
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 1px 1px; /* Consistent padding for all items */
+    transition: 0.3s;
+    line-height: 1.5; /* Consistent line height */
+    display: flex;
+    align-items: center; /* Vertically center the text */
+    height: 100%; /* Ensure full height */
+}
+
+nav ul li a i{
+    padding:6px;
+}
+
+nav ul.active {
+    display: block;
+}
+
+nav ul.mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px; /* Align menu items just below the header */
+    right: 9px; /* Align menu items close to the hamburger button */
+    background: rgba(0, 0, 0, 0.9);
+    width: 200px; /* Adjust width to fit the content */
+    padding: 12px; /* Add some padding around the items */
+    border-radius: 8px; /* Add rounded corners for a better look */
+    z-index: 999;
+}
+
+nav ul.mobile-menu li {
+    text-align: left; /* Align text for better readability */
+    margin: 4px 4px; /* Reduce space between items */
+    padding: -1px -1px; /* Add padding to each menu item for better click area */
+    position: sticky;
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+    .desktop-menu {
+        display: flex;
+        gap: 1em;
+    }
+
+    .hamburger {
+        display: none; /* Hide hamburger on larger screens */
+    }
+
+    nav ul {
+        display: flex; /* Show menu as horizontal on larger screens */
+    }
+
+    nav ul li {
+        margin: 0 15px; /* Add space between items */
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+        margin-left: auto;
+    }
+
+    header {
+        height: 60px;
+    }
+
+    nav ul.mobile-menu.active {
+        display: flex;
+    }
+}
+
+/* Container Styling */
+.container {
+    width: 80%;
+    margin: 50px auto;
+    padding-top: 20px;
+}
+
+/* Title Styling */
+.title {
+    font-size: 42px;
+    margin-top: -20px;
+    padding-bottom: 25px;
+    text-align: center;
+    font-weight: bold;
+    color: #222;
+}
+
+/* NGO Cards Section */
+.ngo-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+    gap: 30px;
+    justify-content: center;
+}
+
+/* NGO Card Styling */
+.ngo-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgb(28, 15, 51);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 1px solid #000000;
+    text-align: center;
+}
+
+.ngo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* NGO Image */
+.ngo-image {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px; /* Adds blank space on the sides */
+}
+
+.ngo-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensures the image is centered with blank sides */
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.ngo-card:hover .ngo-image img {
+    transform: scale(1.05);
+}
+
+/* NGO Information */
+.ngo-info {
+    margin-top: 15px;
+}
+
+.ngo-info h2 {
+    font-size: 1.6em;
+    color: #222;
+    font-weight: 700;
+}
+
+.ngo-info p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+    padding: 0 10px;
+}
+
+/* Button Styling */
+.ngo-button {
+    display: block;
+    text-decoration: none;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 20px;
+}
+.ngo-button:hover {
+    background: linear-gradient(135deg, #0056b3, #003d82);
+    transform: scale(1.05);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    .ngo-cards {
+        grid-template-columns: 1fr; /* Only 1 card per row on smaller screens */
+    }
+}
