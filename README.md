@@ -5,7 +5,10 @@
 DonateEase is a web platform that connects donors with NGOs and individuals in need. Users can donate money, books, clothes, and other essential items, track their past donations, and make payments seamlessly via QR code.
 
 ---
+**Demo**-[DonateEase](https://donateease-2f624.web.app/)
+- You can view our project demo in the above link
 
+---
 ## 🚀 Features
 
 ### **Frontend**
